@@ -1,6 +1,6 @@
 import java.util.Vector;
 
-public abstract class NetworkInterface {
+public abstract class NetworkInterface extends Protocol{
 
 	private Vector<NetworkInterfaceEventHandler> receiveHandler = new Vector<NetworkInterfaceEventHandler>();
 

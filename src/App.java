@@ -1,19 +1,22 @@
+import java.util.Vector;
 
-public class SimpleProtocol extends Protocol {
-	
-	private SimpleProtocol nextProtocol;
-	private SimpleProtocol prevProtocol;
+import SimpleProtocol.SimpleProtocolHandleAbove;
+import SimpleProtocol.SimpleProtocolHandleBelow;
+
+public class App extends Protocol{
+	private Protocol nextProtocol;
+	private Protocol prevProtocol;
 	
 	private class SimpleProtocolHandleAbove implements EventHandler {
 		@Override
 		public void processEvent(Event e) {
 			switch (e.getT()) {
 				case SEND:
-					prevProtocol.processEvent(e);
+					// TODO auf oberes protokoll zugreifen, Ereignis (RECEIVE) erzeugen bei handlerBelow des oberen Protokolls
 					
 					break;					
 				case RECEIVE:
-					nextProtocol.processEvent(e);
+					// TODO Ereignis bei handleBelow erzuegen mit SEND erzeugen
 					
 					break;
 			}
@@ -39,7 +42,7 @@ public class SimpleProtocol extends Protocol {
 	// konstruktor
 	
 
-	public SimpleProtocol(Protocol nextProtocol, Protocol prevProtocol) {
+	public App(Protocol nextProtocol, Protocol prevProtocol) {
 		handleAbove = new SimpleProtocolHandleAbove();
 		handleBelow = new SimpleProtocolHandleBelow();
 		this.nextProtocol = nextProtocol;
