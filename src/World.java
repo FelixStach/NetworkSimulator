@@ -3,6 +3,16 @@ import java.util.Vector;
 public class World {
 	private Vector<Node> knotenliste = new Vector<Node>();
 	
+	private static Scheduler sched = null;
+	
+	public static Scheduler getScheduler() {
+		if (sched == null) {
+			sched = new SimpleScheduler();
+		}
+		return sched;
+	}
+	
+	
 	public static void main (String args []) {
 		
 		Node node1 = new Node(10,10);

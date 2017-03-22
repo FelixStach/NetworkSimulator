@@ -1,21 +1,20 @@
 
 public class SimpleProtocol extends Protocol {
 	
-	private SimpleProtocol nextProtocol;
-	private SimpleProtocol prevProtocol;
-	
 	private class SimpleProtocolHandleAbove implements EventHandler {
 		@Override
 		public void processEvent(Event e) {
 			switch (e.getT()) {
-				case SEND:
-					//prevProtocol.processEvent(e);
-					
-					break;					
-				case RECEIVE:
-					//nextProtocol.processEvent(e);
-					
+				case SEND: {
+					Event newEvent = new Event(e.getTs() + 0.001, above.handleBelow, EventType.RECEIVE, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;	
+				}
+				case RECEIVE: {
+					Event newEvent = new Event(e.getTs() + 0.001, handleBelow, EventType.SEND, e.getP());
+					World.getScheduler().schedule(newEvent);
 					break;
+				}
 			}
 		}
 	}
@@ -25,12 +24,16 @@ public class SimpleProtocol extends Protocol {
 		@Override
 		public void processEvent(Event e) {
 			switch (e.getT()) {
-				case SEND:
-					// TODO auf unteres protokoll zugreifen, Ereignis (RECEIVE) erzeugen bei handlerAbove des unteren Protokolls
-					break;					
-				case RECEIVE:
-					// TODO Ereignis bei handleAbove erzuegen mit SEND erzeugen
-					break;					
+				case SEND: {
+					Event newEvent = new Event(e.getTs() + 0.001, below.handleAbove, EventType.RECEIVE, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;	
+				}				
+				case RECEIVE: {
+					Event newEvent = new Event(e.getTs() + 0.001, handleAbove, EventType.SEND, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;		
+				}
 			}
 		}
 	}
@@ -42,8 +45,6 @@ public class SimpleProtocol extends Protocol {
 	public SimpleProtocol(Protocol nextProtocol, Protocol prevProtocol) {
 		handleAbove = new SimpleProtocolHandleAbove();
 		handleBelow = new SimpleProtocolHandleBelow();
-		//this.nextProtocol = nextProtocol;
-		//this.prevProtocol = prevProtocol;
 	}
 
 }

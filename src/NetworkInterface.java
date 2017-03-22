@@ -1,22 +1,50 @@
-import java.util.Vector;
 
-public abstract class NetworkInterface extends Protocol{
-
-	private Vector<EventHandler> receiveHandler = new Vector<EventHandler>();
-
-	public void addReceiveHandler(EventHandler handler) {
-		receiveHandler.add(handler);
-	}
-
-	public void receive(DataPacket dataPacket) {
-		for (EventHandler h : receiveHandler) {
+public class NetworkInterface extends Protocol {
+	
+	private class SimpleProtocolHandleAbove implements EventHandler {
+		@Override
+		public void processEvent(Event e) {
+			switch (e.getT()) {
+				case SEND: {
+					Event newEvent = new Event(e.getTs() + 0.001, above.handleBelow, EventType.RECEIVE, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;	
+				}
+				case RECEIVE: {
+					Event newEvent = new Event(e.getTs() + 0.001, handleBelow, EventType.SEND, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;
+				}
+			}
 		}
 	}
 
-	public abstract void send(DataPacket dataPacket);
-		
+	
+	private class SimpleProtocolHandleBelow implements EventHandler {
+		@Override
+		public void processEvent(Event e) {
+			switch (e.getT()) {
+				case SEND: {
+					Event newEvent = new Event(e.getTs() + 0.001, below.handleAbove, EventType.RECEIVE, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;	
+				}				
+				case RECEIVE: {
+					Event newEvent = new Event(e.getTs() + 0.001, handleAbove, EventType.SEND, e.getP());
+					World.getScheduler().schedule(newEvent);
+					break;		
+				}
+			}
+		}
+	}
+	
+	
+	// konstruktor
 	
 
-	
+	public NetworkInterface(Protocol nextProtocol, Protocol prevProtocol) {
+		handleAbove = new SimpleProtocolHandleAbove();
+		handleBelow = new SimpleProtocolHandleBelow();
+	}
 
 }

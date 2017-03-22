@@ -9,7 +9,7 @@ public class Node {
 
 	private double x;
 	private double y;
-	private NetworkInterface netInf;													//Standard-NetInf
+	private NetworkInterface netInf = new NetworkInterface(null, null);													//Standard-NetInf
 	private LinkedList<Protocol> protocols = new LinkedList<Protocol>();
 	
 	public Node(int x, int y ) {
