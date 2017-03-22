@@ -26,6 +26,12 @@ public abstract class Protocol  {
 		return below;
 	}
 	
+	public void setAbove(Protocol p) {
+		handleAbove = p;
+	}
 	
+	public void setBelow(Protocol p) {
+		handleBelow = p;
+	}
 	
 }
