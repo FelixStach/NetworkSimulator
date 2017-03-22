@@ -9,11 +9,11 @@ public class SimpleProtocol extends Protocol {
 		public void processEvent(Event e) {
 			switch (e.getT()) {
 				case SEND:
-					prevProtocol.processEvent(e);
+					//prevProtocol.processEvent(e);
 					
 					break;					
 				case RECEIVE:
-					nextProtocol.processEvent(e);
+					//nextProtocol.processEvent(e);
 					
 					break;
 			}
@@ -42,8 +42,8 @@ public class SimpleProtocol extends Protocol {
 	public SimpleProtocol(Protocol nextProtocol, Protocol prevProtocol) {
 		handleAbove = new SimpleProtocolHandleAbove();
 		handleBelow = new SimpleProtocolHandleBelow();
-		this.nextProtocol = nextProtocol;
-		this.prevProtocol = prevProtocol;
+		//this.nextProtocol = nextProtocol;
+		//this.prevProtocol = prevProtocol;
 	}
 
 }

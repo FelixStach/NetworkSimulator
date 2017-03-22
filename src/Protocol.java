@@ -27,11 +27,11 @@ public abstract class Protocol  {
 	}
 	
 	public void setAbove(Protocol p) {
-		handleAbove = p;
+		above = p;
 	}
 	
 	public void setBelow(Protocol p) {
-		handleBelow = p;
+		below = p;
 	}
 	
 }

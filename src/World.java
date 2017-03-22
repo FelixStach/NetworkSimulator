@@ -1,15 +1,15 @@
 import java.util.Vector;
 
-public class Welt {
-	private Vector<Knoten> knotenliste = new Vector<Knoten>();
+public class World {
+	private Vector<Node> knotenliste = new Vector<Node>();
 	
 	public static void main (String args []) {
 		
 		Node node1 = new Node(10,10);
 		Node node2 = new Node(20,20);
 		
-		SimpleProtocol protocol1(null, null) = new SimpleProtocol;
-		SimpleProtocol protocol2(null, null) = new SimpleProtocol;
+		SimpleProtocol protocol1 = new SimpleProtocol(null, null);
+		SimpleProtocol protocol2 = new SimpleProtocol(null, null);
 		App standardApp = new App(null, null);
 		
 		node1.addProtocol(protocol1);

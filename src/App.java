@@ -1,8 +1,5 @@
 import java.util.Vector;
 
-import SimpleProtocol.SimpleProtocolHandleAbove;
-import SimpleProtocol.SimpleProtocolHandleBelow;
-
 public class App extends Protocol{
 	private Protocol prevProtocol;
 	
@@ -12,7 +9,7 @@ public class App extends Protocol{
 		public void processEvent(Event e) {
 			switch (e.getT()) {
 				case SEND:
-					prevProtocol.processEvent(e);
+					
 					break;					
 				case RECEIVE:
 					// TODO Ereignis bei handleAbove erzuegen mit SEND erzeugen
@@ -26,10 +23,10 @@ public class App extends Protocol{
 	
 
 	public App(Protocol nextProtocol, Protocol prevProtocol) {
-		handleAbove = new SimpleProtocolHandleAbove();
-		handleBelow = new SimpleProtocolHandleBelow();
-		this.nextProtocol = nextProtocol;
-		this.prevProtocol = prevProtocol;
+	//	handleAbove = new SimpleProtocol();
+	//	handleBelow = new SimpleProtocol();
+	//	this.nextProtocol = nextProtocol;
+	//	this.prevProtocol = prevProtocol;
 	}
 
 }
