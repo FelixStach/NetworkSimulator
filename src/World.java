@@ -1,6 +1,8 @@
 import java.util.Vector;
 
 public class World {
+
+  
   private Vector<Node> knotenliste = new Vector<Node>();
   
   private static Scheduler sched = null;
@@ -34,6 +36,8 @@ public class World {
     node2.addProtocol(protocol3);
     node2.addProtocol(protocol4);
     node2.addProtocol(tolleApp);
+    
+    node1.attachNode(node2);
     
    // node2.getProtocols().getFirst().processEvent();
     
