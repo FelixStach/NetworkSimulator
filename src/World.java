@@ -35,7 +35,7 @@ public class World {
     node2.addProtocol(protocol4);
     node2.addProtocol(tolleApp);
     
-    node2.getProtocols().getFirst().processEvent();
+   // node2.getProtocols().getFirst().processEvent();
     
   }
 }

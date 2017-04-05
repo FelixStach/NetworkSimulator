@@ -26,7 +26,7 @@ public class Node {
     p.setBelow(last); 
   }
   
-  private LinkedList<Protocol> getProtocols() {
+  public LinkedList<Protocol> getProtocols() {
   return protocols;
     }
   
