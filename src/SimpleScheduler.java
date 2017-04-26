@@ -12,13 +12,13 @@ public class SimpleScheduler implements Scheduler {
 	
 	@Override
 	public Event next() {
-		return events.get(0);
+		return events.size() > 0 ? events.get(0) : null;	// obsolete error 1
 	}
 	
 	@Override
 	public void schedule(Event e) {
 		int i= 0;
-		while(events.get(i).getTs() < e.getTs()){
+		while(i < events.size() && events.get(i).getTs() < e.getTs()){	// obsolete error 2
 			i++;
 		}
 		events.insertElementAt(e, i);

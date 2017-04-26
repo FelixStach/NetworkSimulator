@@ -20,14 +20,14 @@ public class World {
     Node node1 = new Node(10,10);
     Node node2 = new Node(20,20);
     
-    SimpleProtocol protocol1 = new SimpleProtocol(null, null);
-    SimpleProtocol protocol2 = new SimpleProtocol(null, null);
-    App standardApp = new App(null, null);
+    SimpleProtocol protocol1 = new SimpleProtocol();
+    SimpleProtocol protocol2 = new SimpleProtocol();
+    ReceiverApp standardApp = new ReceiverApp();
     
     
-    SimpleProtocol protocol3 = new SimpleProtocol(null, null);
-    SimpleProtocol protocol4 = new SimpleProtocol(null, null);
-    App tolleApp = new App(null, null);
+    SimpleProtocol protocol3 = new SimpleProtocol();
+    SimpleProtocol protocol4 = new SimpleProtocol();
+    SenderApp tolleApp = new SenderApp(1.0,5.0);
     
     node1.addProtocol(protocol1);
     node1.addProtocol(protocol2);
@@ -39,7 +39,8 @@ public class World {
     
     node1.attachNode(node2);
     
-   // node2.getProtocols().getFirst().processEvent();
-    
+    while (sched.next() != null) {
+    	sched.processNext();
+    }
   }
 }
