@@ -88,6 +88,22 @@ public class MinimumHeapScheduler implements Scheduler {
      	}     	
 	}
 	
+	private void tauschenRunter(MinimumHeapNode aktuell){
+		while(aktuell.getEvent().getTs() > aktuell.getlSon().getEvent().getTs() || aktuell.getEvent().getTs() > aktuell.getrSon().getEvent().getTs() ){
+			Event temp = aktuell.getEvent();
+			if (aktuell.getlSon().getEvent().getTs() > aktuell.getrSon().getEvent().getTs()) {
+				aktuell.setEvent(aktuell.getrSon().getEvent());
+				aktuell.getrSon().setEvent(temp);
+				aktuell = aktuell.getrSon();
+			} else {
+				aktuell.setEvent(aktuell.getlSon().getEvent());
+				aktuell.getlSon().setEvent(temp);
+				aktuell = aktuell.getlSon();
+			}
+		}
+
+	}
+	
 	
 	
 	
@@ -115,19 +131,7 @@ public class MinimumHeapScheduler implements Scheduler {
 		}
 		
 
-		aktuell = root;
-		while(aktuell.getEvent().getTs() > aktuell.getlSon().getEvent().getTs() || aktuell.getEvent().getTs() > aktuell.getrSon().getEvent().getTs() ){
-			Event temp = aktuell.getEvent();
-			if (aktuell.getlSon().getEvent().getTs() > aktuell.getrSon().getEvent().getTs()) {
-				aktuell.setEvent(aktuell.getrSon().getEvent());
-				aktuell.getrSon().setEvent(temp);
-				aktuell = aktuell.getrSon();
-			} else {
-				aktuell.setEvent(aktuell.getlSon().getEvent());
-				aktuell.getlSon().setEvent(temp);
-				aktuell = aktuell.getlSon();
-			}
-		}
+		tauschenRunter(root);
 		// TODO null Pointer exception beachten
 		
 		return ev;
@@ -138,9 +142,45 @@ public class MinimumHeapScheduler implements Scheduler {
 
 	@Override
 	public void cancel(Event e) {
-		// TODO Auto-generated method stub
+		//ein Zeiger muss auf den Knoten zeigen, wo das Event gespeichert ist, welches man löschen will
+		//der anderer Zeiger verweist auf das letzte Event im Baum
+		//danach wird das eine Event mit dem letzten Event überschrieben
+		// der last wird null gesetzt
+		//dann muss man schauen, ob der aktuell getauscht werden muss		
+		MinimumHeapNode aktuell = suche(root, e);  //von dem Event e
+		MinimumHeapNode last = getNodeAtIndex(n,true); // für das letzte Event des Baums
+		aktuell.setEvent(last.getEvent());
+		
+		if(last.getFather().getlSon()== last){
+		    last.getFather().setlSon(null);
+		}else{
+			last.getFather().setrSon(null);
+		}
+		tauschenRunter(aktuell);
+		
 
 	}
+	
+	public MinimumHeapNode suche(MinimumHeapNode b, Event e){
+		if(e.equals(b.getEvent())){
+			return b;
+		}
+		if(b.getlSon()!= null){
+			MinimumHeapNode found = suche(b.getlSon(), e);
+			if(found!= null){
+				return found;
+			}
+		}
+		if(b.getrSon()!= null){
+			MinimumHeapNode found = suche(b.getrSon(), e);
+			if(found!= null){
+				return found;
+			}
+		}
+		return null;
+	}
+	
+	
 
 	@Override
 	public void cancelAll() {
