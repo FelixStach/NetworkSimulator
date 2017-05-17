@@ -1,7 +1,7 @@
 
 public class Event {
  
-	protected double ts;
+	protected double ts;	// in seconds
 	protected EventHandler h;
 	protected EventType t;
 	protected DataPacket p;

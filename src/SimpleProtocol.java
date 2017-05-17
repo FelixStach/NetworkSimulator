@@ -1,8 +1,5 @@
 
 public class SimpleProtocol extends Protocol {
-
-  private SimpleProtocolHandleBelow handleBelow;
-  private SimpleProtocolHandleAbove handleAbove;
   
   
   private class SimpleProtocolHandleAbove implements EventHandler {
@@ -46,17 +43,9 @@ public class SimpleProtocol extends Protocol {
   // konstruktor
   
 
-  public SimpleProtocol(Protocol nextProtocol, Protocol prevProtocol) {
+  public SimpleProtocol() {
     handleAbove = new SimpleProtocolHandleAbove();
     handleBelow = new SimpleProtocolHandleBelow();
   }
-  
-  public SimpleProtocolHandleBelow getHandleBelow() {
-    return this.handleBelow;
-    }
-    
-  public SimpleProtocolHandleAbove getHandleAbove() {
-    return this.handleAbove;
-    }
 
 }
