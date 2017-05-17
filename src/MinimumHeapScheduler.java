@@ -10,17 +10,7 @@ public class MinimumHeapScheduler implements Scheduler {
 		n = 0;
 	}
 
-	@Override
-	public void processNext() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Event next() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 	private MinimumHeapNode getNodeAtIndex(int n, boolean enter){
@@ -61,6 +51,12 @@ public class MinimumHeapScheduler implements Scheduler {
 	
 	@Override
 	public void schedule(Event e) {
+		//Als erstes muss die Wurzel gesetzt werden --> dadurch wird n eins höher gesetzt
+		//Anschließend sucht man den letzten vorhandenen Knoten im Baum --> speichert ihn in aktuell
+		//Erzeuge nun einen neuen Knoten mit aktuell als Vater
+		//Nun entscheiden ob links oder rechts anhängen
+		// Dann anhängen
+		//darauf dann nach oben hin durch tauschen, bis der Vater kleiner ist als der neue Knoten
 		n++;
 		if (root == null) {
 			root = new MinimumHeapNode(e, null, null, null);
@@ -89,9 +85,11 @@ public class MinimumHeapScheduler implements Scheduler {
 	}
 	
 	private void tauschenRunter(MinimumHeapNode aktuell){
-		while(aktuell.getEvent().getTs() > aktuell.getlSon().getEvent().getTs() || aktuell.getEvent().getTs() > aktuell.getrSon().getEvent().getTs() ){
+		while(aktuell.getlSon()!= null && (
+				aktuell.getEvent().getTs() > aktuell.getlSon().getEvent().getTs() || 
+				aktuell.getEvent().getTs() > aktuell.getrSon().getEvent().getTs() )) {
 			Event temp = aktuell.getEvent();
-			if (aktuell.getlSon().getEvent().getTs() > aktuell.getrSon().getEvent().getTs()) {
+			if (aktuell.getrSon()!= null && aktuell.getlSon().getEvent().getTs() > aktuell.getrSon().getEvent().getTs()) {
 				aktuell.setEvent(aktuell.getrSon().getEvent());
 				aktuell.getrSon().setEvent(temp);
 				aktuell = aktuell.getrSon();
@@ -161,7 +159,8 @@ public class MinimumHeapScheduler implements Scheduler {
 
 	}
 	
-	public MinimumHeapNode suche(MinimumHeapNode b, Event e){
+	public MinimumHeapNode suche(MinimumHeapNode b, Event e){ //um einem bestimmten Knoten mit einem bestimmten Event zu suchen
+		//
 		if(e.equals(b.getEvent())){
 			return b;
 		}
@@ -184,8 +183,12 @@ public class MinimumHeapScheduler implements Scheduler {
 
 	@Override
 	public void cancelAll() {
-		// TODO Auto-generated method stub
-
+	n=0;
+	MinimumHeapNode lSon = null;
+	MinimumHeapNode rSon = null;
+	MinimumHeapNode father = null;
+	MinimumHeapNode root = null;
+	
 	}
 
 }
