@@ -199,10 +199,8 @@ public class MinimumHeapScheduler implements Scheduler {
 	@Override
 	public void cancelAll() {
 	n=0;
-	MinimumHeapNode lSon = null;
-	MinimumHeapNode rSon = null;
-	MinimumHeapNode father = null;
-	MinimumHeapNode root = null;
+	
+	 root = null;
 	
 	}
 
