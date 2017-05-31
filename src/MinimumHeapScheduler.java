@@ -1,5 +1,18 @@
 
 public class MinimumHeapScheduler implements Scheduler {
+	
+	
+	@Override
+	public void processNext() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Event next() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	private MinimumHeapNode root;
 	private int n;
@@ -24,7 +37,7 @@ public class MinimumHeapScheduler implements Scheduler {
 		MinimumHeapNode aktuell = root;
 		z = z / 2;
 
-		while (z > 1) {
+		while (z > 1) { //=> ?
 			if (m >= z) {
 				m = m - z;
 				z = z / 2;
@@ -146,8 +159,10 @@ public class MinimumHeapScheduler implements Scheduler {
 		// der last wird null gesetzt
 		//dann muss man schauen, ob der aktuell getauscht werden muss		
 		MinimumHeapNode aktuell = suche(root, e);  //von dem Event e
-		MinimumHeapNode last = getNodeAtIndex(n,true); // für das letzte Event des Baums
-		aktuell.setEvent(last.getEvent());
+		MinimumHeapNode last = getNodeAtIndex(n-1,true); // für das letzte Event des Baums
+		if(aktuell.getEvent()!=null){
+			aktuell.setEvent(last.getEvent());
+		}
 		
 		if(last.getFather().getlSon()== last){
 		    last.getFather().setlSon(null);
