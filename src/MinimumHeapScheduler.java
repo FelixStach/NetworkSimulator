@@ -37,7 +37,7 @@ public class MinimumHeapScheduler implements Scheduler {
 		MinimumHeapNode aktuell = root;
 		z = z / 2;
 
-		while (z > 1) { //=> ?
+		while (z > 1) {
 			if (m >= z) {
 				m = m - z;
 				z = z / 2;
@@ -199,8 +199,7 @@ public class MinimumHeapScheduler implements Scheduler {
 	@Override
 	public void cancelAll() {
 	n=0;
-	
-	 root = null;
+	root = null;
 	
 	}
 
